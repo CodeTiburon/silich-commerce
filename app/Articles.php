@@ -8,7 +8,8 @@ class Articles extends Model {
 	protected $fillable = [
         'title',
         'body',
-        'published_at'
+        'published_at',
+        'user_id' //temp
     ];
 
     protected $dates = ['published_at'];
@@ -35,7 +36,7 @@ class Articles extends Model {
     public function user()
     {
 
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('\App\Main_user');
 
     }
 

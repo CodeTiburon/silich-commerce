@@ -1,15 +1,15 @@
 <?php namespace App\Http\Controllers\Authorise;
 
 use App\Http\Controllers\Controller;
+use App\Main_user;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 //use Illuminate\Support\Facades\Request;
-use Illuminate\Http\Exception\HttpResponseException;
-use PhpSpec\Exception\Exception;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 //use App\Http\Requests\CreateNewUserRequest;
@@ -36,6 +36,28 @@ class AuthoriseController extends Controller {
 
     }
 
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function getRegister()
+    {
+        //check is method working
+
+//        $user = Main_user::first();
+//        if($user->is('admin')) {
+//            return 1;
+//        }
+//        else {
+//            return 2;
+//        }
+        return view('authorise.register');
+
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function postRegister(Request $request)
     {
         $validator = $this->registrar->validator($request->all());
@@ -53,6 +75,15 @@ class AuthoriseController extends Controller {
                 'redirectTo' => '../home'
             ]);
         };
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function getLogin()
+    {
+        return view('authorise.login');
+
     }
 
     /**

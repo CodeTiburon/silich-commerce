@@ -28,6 +28,11 @@
                 <li><a href="{{url('authorize/register')}}"><span class="glyphicon glyphicon-registration-mark"></span> Register</a></li>
             </ul>
             @else
+                @if(\Auth::user()->isAdmin())
+                    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="{{url('admin/index')}}"><span class="glyphicon glyphicon-folder-open"></span> Admin page</a></li>
+                    </ul>
+                @endif
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
@@ -38,13 +43,16 @@
         </div>
     </div>
 </div>
+</div>
 <div class="container-fluid">
 @yield('content')
 </div>
+
 <!-- Scripts -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script src="{{ asset('/js/jquery.form.js') }}"></script>
 <script src="{{ asset('/js/form.js') }}"></script>
+
 </body>
 </html>

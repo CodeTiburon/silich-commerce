@@ -17,10 +17,6 @@ Route::get('contact','ContactController@getName');
 Route::get('home', 'HomeController@index');
 
 Route::resource('user', 'UserController');
-//Route::get('user', 'UserController@index');
-//Route::get('user/create', 'UserController@create');
-//Route::get('user/{id}', 'UserController@show');
-//Route::post('user', 'UserController@store');
 
 Route::resource('articles', 'ArticlesController');
 //Route::get('articles', 'ArticlesController@index');
@@ -32,11 +28,9 @@ Route::get('authorize', 'Authorise\AuthoriseController@authorize');
 Route::controllers([
     'authorize' => 'Authorise\AuthoriseController',
 ]);
-//Route::get('authorize', 'Authorise\AuthoriseController@authorize');
-//Route::get('authorize/login', 'Authorise\AuthoriseController@login');
-//Route::get('authorize/register', 'Authorise\AuthoriseController@register');
-//Route::post('authorize', 'Authorise\AuthoriseController@tryLogin');
-//Route::post('authorize/register', 'Authorise\AuthoriseController@tryRegister');
+Route::controllers([
+    'admin' => 'Admin\AdminController'
+]);
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

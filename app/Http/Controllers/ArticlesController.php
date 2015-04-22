@@ -33,6 +33,10 @@ class ArticlesController extends Controller {
 
     public function store(ArticleRequest $request)
     {
+        //Question
+//        $article = new Articles($request->all());
+//
+//        Auth::user()->articles()->save($article);
 
         Articles::create($request->all());
 
