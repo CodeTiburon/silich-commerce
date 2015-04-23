@@ -21,17 +21,32 @@ class Articles extends Model {
 
     }
 
+    /**
+     * @param $query
+     */
+
     public function scopeUnPublished($query)
     {
 
         $query->where('published_at', '>=', Carbon::now());
 
     }
+
+
     //before database insert
+    /**
+     * @param $date
+     */
+
     public function setPublishedAtAttribute($date)
     {
         $this->attributes['published_at'] = Carbon::createFromFormat('Y-m-d', $date);
     }
+
+    /**
+     * An article only has 1 user
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
 
     public function user()
     {
@@ -40,4 +55,18 @@ class Articles extends Model {
 
     }
 
+    /**
+     * Get a tag that belongs to a user
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tags', 'article_tags', 'article_id')->withTimestamps();
+    }
+
+    public function getTagListAttribute()
+    {
+        return $this->tags->lists('id');
+    }
 }

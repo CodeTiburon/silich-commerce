@@ -10,15 +10,24 @@ class Main_user extends Model implements AuthenticatableContract {
 
     protected $table = 'main_users';
 
+
 	protected $fillable = ['name', 'email', 'password'];
 
+    /**
+     * A user can have many articles
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function articles()
     {
 
-        return $this->hasMany('\App\Articles');
+        return $this->hasMany('\App\Articles', 'user_id');
 
     }
 
+    /**
+     * Determine if the current user is admin
+     * @return bool
+     */
     public function isAdmin()
     {
         if(\Auth::user()->role == 'admin') {
@@ -26,7 +35,34 @@ class Main_user extends Model implements AuthenticatableContract {
         }
         return false;
     }
+
+    /**
+     * View helper
+     * @param $node
+     * @return string
+     */
+    public function renderNode($node) {
+
+        if( $node->isLeaf() ) {
+            return '<li data-id="'. $node->id .'"">' . $node->name . '</li>';
+        } else {
+            $html = '<li data-id="'. $node->id .'"">' . $node->name;
+
+            $html .= '<ul>';
+
+            foreach($node->children as $child)
+                $html .= $this->renderNode($child);
+
+            $html .= '</ul>';
+
+            $html .= '</li>';
+        }
+
+        return $html;
+    }
+
 }
+
 
 
 // in case there are many users

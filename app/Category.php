@@ -69,25 +69,6 @@ class Category extends Node {
    */
    protected $guarded = array('id', 'parent_id', 'lft', 'rgt', 'depth');
 
-   public function renderNode($node) {
-
-       if( $node->isLeaf() ) {
-           return '<li>' . $node->name . '</li>';
-       } else {
-           $html = '<li>' . $node->name;
-
-           $html .= '<ul>';
-
-           foreach($node->children as $child)
-               $html .= renderNode($child);
-
-           $html .= '</ul>';
-
-           $html .= '</li>';
-       }
-
-       return $html;
-   }
   //
   // This is to support "scoping" which may allow to have multiple nested
   // set trees in the same database table.

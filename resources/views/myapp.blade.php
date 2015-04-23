@@ -7,6 +7,8 @@
     <title>Login</title>
 
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+    <!-- Temp admin css -->
+    <link href="{{ asset('/css/admin.css') }}" rel="stylesheet">
 
 </head>
 <body>
@@ -45,14 +47,19 @@
 </div>
 </div>
 <div class="container-fluid">
-@yield('content')
+
+    @include('partials.flash')
+
+
+    @yield('content')
 </div>
 
 <!-- Scripts -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script src="{{ asset('/js/jquery.form.js') }}"></script>
-<script src="{{ asset('/js/form.js') }}"></script>
+<script src="{{ asset('/js/index.js') }}"></script>
 
+@yield('sources')
 </body>
 </html>

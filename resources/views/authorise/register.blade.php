@@ -63,3 +63,7 @@
     </div>
 
 @endsection
+
+@section('sources')
+    <script src="{{ asset('/js/form.js') }}"></script>
+@endsection

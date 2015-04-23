@@ -28,6 +28,15 @@ class AdminController extends Controller {
         return view('admin.categories', ['categories' => $categories]);
     }
 
+    public function getAdd()
+    {
+
+
+//        $root = Category::where('id', '=', '4')->first();
+//        $child = Category::create(['name' => 'MSi']);
+//        $child->makeChildOf($root);
+
+    }
     //Default tree
 
 //    public function getMake()
