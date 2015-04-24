@@ -20,7 +20,7 @@
 
 <div class="form-group">
     {!! Form::label('tag_list', 'Tags:') !!}
-    {!! Form::select('tag_list[]', $tags, null,['class' => 'form-control','multiple']) !!}
+    {!! Form::select('tag_list[]', $tags, null,['id' => 'tag_list', 'class' => 'form-control','multiple']) !!}
 
 </div>
 
@@ -32,3 +32,7 @@
     {!! Form::submit($submitButton, ['class' => 'btn btn-primary form-control']) !!}
 
 </div>
+
+@section('sources')
+    <script src="{{ asset('/js/selectedTags.js') }}"></script>
+@endsection

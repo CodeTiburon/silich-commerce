@@ -1,16 +1,21 @@
 <?php namespace App\Http\Controllers\Admin;
 
+use App\Facades\MyHelperFacade;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Services\MyHelper;
 use Illuminate\Http\Request;
 use App\Category;
 
 class AdminController extends Controller {
 
-    public function __construct()
+    protected $helper;
+
+    public function __construct(MyHelper $helper)
     {
         $this->middleware('admin');
+        $this->helper = $helper;
     }
 
     /**
@@ -25,18 +30,23 @@ class AdminController extends Controller {
     {
         $categories = Category::all()->toHierarchy();
 
-        return view('admin.categories', ['categories' => $categories]);
+        return view('admin.categories', ['categories' => $categories])->with(['helper' => $this->helper]);
     }
 
-    public function getAdd()
+    public function getTest()
     {
-
-
-//        $root = Category::where('id', '=', '4')->first();
-//        $child = Category::create(['name' => 'MSi']);
-//        $child->makeChildOf($root);
-
+        return \MyHelperFacade::test();
     }
+
+//    public function getAdd()
+//    {
+//
+//
+////        $root = Category::where('id', '=', '4')->first();
+////        $child = Category::create(['name' => 'MSi']);
+////        $child->makeChildOf($root);
+//
+//    }
     //Default tree
 
 //    public function getMake()

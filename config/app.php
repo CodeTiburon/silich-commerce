@@ -146,7 +146,7 @@ return [
 		'App\Providers\ConfigServiceProvider',
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
-
+        'App\Providers\ViewHelperServiceProvider',
 	],
 
 	/*
@@ -196,6 +196,7 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
         'Html'      => 'Illuminate\Html\HtmlFacade',
         'Form'      => 'Illuminate\Html\FormFacade',
+        'MyHelperFacade'=> 'App\Facades\MyHelperFacade',
 
 	],
 

@@ -60,11 +60,7 @@ class ArticlesController extends Controller {
 
         //Faster way to save an article
 
-        $article = \Auth::user()->articles()->create($request->all());
-
-        $tagIds = $request->input('tag_list');
-
-        $article->tags()->attach($tagIds);
+        $this->createArticle($request);
 
         \Session::flash('flash_message', 'Your article has been created successfully');
 
@@ -93,11 +89,37 @@ class ArticlesController extends Controller {
      */
     public function update(Articles $article, ArticleRequest $request)
     {
-
         $article->update($request->all());
+
+        $this->syncTags($article, $request->input('tag_list'));
 
         return redirect('articles');
 
     }
+
+    /**
+     * @param Articles $article
+     * @param array $tags
+     */
+    private function syncTags(Articles $article, array $tags)
+    {
+
+        $article->tags()->sync($tags);
+
+    }
+
+    /**
+     * Create a new article
+     * @param ArticleRequest $request
+     */
+    private function createArticle(ArticleRequest $request)
+    {
+
+        $article = \Auth::user()->articles()->create($request->all());
+
+        $this->syncTags($article, $request->input('tag_list'));
+
+    }
+
 
 }

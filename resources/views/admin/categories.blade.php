@@ -4,10 +4,10 @@
 
     <ul>
         @foreach($categories as $node)
-             <?php echo Auth::user()->renderNode($node); ?>
+             <?php echo \MyHelperFacade::renderNode($node); ?>
         @endforeach
     </ul>
-    <div id ='test'>hello</div>
+    <div id ='addWindow'>hello</div>
 @endsection
 
 @section('sources')

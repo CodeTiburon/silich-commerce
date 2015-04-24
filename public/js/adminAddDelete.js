@@ -1,15 +1,21 @@
 $(document).ready(function() {
-    $('#test').slideUp('fast');
-    $('li').click(function(e) {
+    $('li').on('click', function(e) {
         e.stopPropagation();
-        $('input').remove();
-        var $element = $(this);
-        //var i = .size() + 1;
-        $element.addClass('selected');
-        var data = $element.data('id');
+        $('li').removeClass('selected');
+        $(this).addClass('selected');
+        data = $(this).data('id');
 
-        $('<p><input type="text" class="categoryToAdd"><a href="#" class="remScnt">Remove</a></p>').appendTo($element);
-
-    })
-
+        $('<p><input type="text" id="addCategory" size="20" placeholder="Enter your text here"><a href="#" id="remScnt">Remove</a></p>').appendTo($('#addWindow'));
+        $('<input type="button" value="Add category" id="addButton">').appendTo($('#addWindow'));
+        $('#remScnt').on('click', function() {
+            $(this).parents('p').remove();
+        });
+    });
+    //$('#idButton').click(function() {
+    //    $.post('addCategory',
+    //        {
+    //            data_id: data,
+    //
+    //        })
+    //})
 });
