@@ -1,21 +1,18 @@
 <?php namespace App\Http\Controllers\Admin;
 
-use App\Facades\MyHelperFacade;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Services\MyHelper;
-use Illuminate\Http\Request;
 use App\Category;
+use Request;
 
 class AdminController extends Controller {
 
-    protected $helper;
 
-    public function __construct(MyHelper $helper)
+    public function __construct()
     {
         $this->middleware('admin');
-        $this->helper = $helper;
     }
 
     /**
@@ -30,13 +27,35 @@ class AdminController extends Controller {
     {
         $categories = Category::all()->toHierarchy();
 
-        return view('admin.categories', ['categories' => $categories])->with(['helper' => $this->helper]);
+        return view('admin.categories', ['categories' => $categories]);
+    }
+
+    public function postAdd()
+    {
+        $root = Category::where('id', '=', Request::input('data_id'))->first();
+        $child = Category::create(['name' => Request::input('new_category')]);
+        $child->makeChildOf($root);
+    }
+
+    public function postSibling()
+    {
+        $root = Category::where('id', '=', Request::input('data_id'))->first();
+        $child = Category::create(['name' => Request::input('new_category')]);
+        $child->makeSiblingOf($root);
+    }
+
+    public function postDelete()
+    {
+        $element = Category::where('id', '=', Request::input('data_id'))->first();
+        $element->delete();
     }
 
     public function getTest()
     {
-        return \MyHelperFacade::test();
+        dd(Category::isValidNestedSet());
     }
+
+
 
 //    public function getAdd()
 //    {

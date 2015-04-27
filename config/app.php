@@ -147,6 +147,8 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
         'App\Providers\ViewHelperServiceProvider',
+        'Barryvdh\Debugbar\ServiceProvider',
+        'App\Providers\ViewComposerServiceProvider',
 	],
 
 	/*
@@ -197,6 +199,7 @@ return [
         'Html'      => 'Illuminate\Html\HtmlFacade',
         'Form'      => 'Illuminate\Html\FormFacade',
         'MyHelperFacade'=> 'App\Facades\MyHelperFacade',
+        'Debugbar' => 'Barryvdh\Debugbar\Facade',
 
 	],
 

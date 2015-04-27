@@ -17,6 +17,8 @@
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
+    <!-- Select plugin for articles -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -35,6 +37,9 @@
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/') }}">Home</a></li>
 				</ul>
+                <ul class="nav navbar-nav">
+                    <li>{!! link_to_action('ArticlesController@show', $latest->title, [$latest->id]) !!}</li>
+                </ul>
 
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())
@@ -51,12 +56,19 @@
 				</ul>
 			</div>
 		</div>
-	</nav>
+        </nav>
+    <div class="container-fluid">
+    @include('partials.flash')
 
 	@yield('content')
+    </div>
 
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <!-- Select plugin for articles -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/js/select2.min.js"></script>
+    <script src="{{ asset('/js/index.js') }}"></script>
+    @yield('sources')
 </body>
 </html>

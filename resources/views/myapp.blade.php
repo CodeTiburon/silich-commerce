@@ -9,7 +9,6 @@
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
     <!-- Temp admin css -->
     <link href="{{ asset('/css/admin.css') }}" rel="stylesheet">
-    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
 <div class="navbar navbar-inverse">
@@ -57,9 +56,9 @@
 <!-- Scripts -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/js/select2.min.js"></script>
 <script src="{{ asset('/js/jquery.form.js') }}"></script>
 <script src="{{ asset('/js/index.js') }}"></script>
+<!--<script src="{{ asset('/js/BootstrapPlugin/bootstrap-confirmation.js') }}"></script> -->
 @yield('sources')
 </body>
 </html>

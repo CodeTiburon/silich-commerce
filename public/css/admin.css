@@ -1,4 +1,18 @@
-.selected {
+.selected > h5 {
     color: forestgreen;
 
+}
+#categoryForm {
+    display: none;
+}
+
+h5 {
+    display: inline-block;
+}
+
+.btn {
+    margin-left: 100px;
+}
+#successMessage {
+    display: none;
 }
