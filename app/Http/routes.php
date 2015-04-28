@@ -12,13 +12,13 @@
 */
 
 Route::get('/', 'WelcomeController@index');
-Route::get('contact','ContactController@getName');
 
 Route::get('home', 'HomeController@index');
 
 Route::resource('user', 'UserController');
 
 Route::resource('articles', 'ArticlesController');
+Route::get('tags/{tags}', 'TagsController@show');
 //Route::get('articles', 'ArticlesController@index');
 //Route::get('articles/create', 'ArticlesController@create');
 //Route::get('articles/{id}', 'ArticlesController@show');

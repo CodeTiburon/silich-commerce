@@ -31,7 +31,13 @@
             @else
                 @if(\Auth::user()->isAdmin())
                     <ul class="nav navbar-nav navbar-right">
-                            <li><a href="{{url('admin/index')}}"><span class="glyphicon glyphicon-folder-open"></span> Admin page</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Menu<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{url('admin/categories')}}"><span class="glyphicon glyphicon-list-alt"></span> Categories</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-credit-card"></span>Products</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 @endif
                 <li class="dropdown">
@@ -45,7 +51,7 @@
     </div>
 </div>
 </div>
-<div class="container-fluid">
+<div class="container">
 
     @include('partials.flash')
 

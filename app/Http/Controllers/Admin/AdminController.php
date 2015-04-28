@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Services\MyHelper;
 use App\Category;
 use Request;
+use Illuminate\Http\Request as RequestValidation;
+use MyHelperFacade;
 
 class AdminController extends Controller {
 
@@ -30,18 +32,27 @@ class AdminController extends Controller {
         return view('admin.categories', ['categories' => $categories]);
     }
 
-    public function postAdd()
+    public function postAdd(RequestValidation $request)
     {
-        $root = Category::where('id', '=', Request::input('data_id'))->first();
-        $child = Category::create(['name' => Request::input('new_category')]);
-        $child->makeChildOf($root);
+        $this->validate($request , [
+            'new_category' => 'required'
+        ]);
+
+        return $this->getTargetCategory();
+
+//        return response()->json([
+//            'parent_id' => $root->id,
+//            'html' => renderNode($child)
+//        ]);
     }
 
-    public function postSibling()
+    public function postSibling(RequestValidation $request)
     {
-        $root = Category::where('id', '=', Request::input('data_id'))->first();
-        $child = Category::create(['name' => Request::input('new_category')]);
-        $child->makeSiblingOf($root);
+        $this->validate($request , [
+            'new_category' => 'required'
+        ]);
+
+       return $this->getTargetCategory();
     }
 
     public function postDelete()
@@ -55,6 +66,22 @@ class AdminController extends Controller {
         dd(Category::isValidNestedSet());
     }
 
+    private function getTargetCategory()
+    {
+        $root = Category::where('id', '=', Request::input('data_id'))->first();
+        $child = Category::create(['name' => Request::input('new_category')]);
+        $target = Request::input('target');
+        if($target == 'add') {
+            $child->makeChildOf($root);
+
+        } else if ($target == 'sibling') {
+            $child->makeSiblingOf($root);
+        }
+        return response()->json([
+            'parentId' => $root->id,
+            'myHtml' => MyHelperFacade::renderNode($child)
+        ]);
+    }
 
 
 //    public function getAdd()

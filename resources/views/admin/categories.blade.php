@@ -1,20 +1,30 @@
 @extends('myapp')
 
 @section('content')
-    <div class="alert alert-success" id="successMessage"></div>
 
-    <ul>
-        @foreach($categories as $node)
-             <?php echo \MyHelperFacade::renderNode($node); ?>
-        @endforeach
-    </ul>
-    <div id ='addWindow'></div>
-    <form id="categoryForm" class="form-group form-group-md">
-        <label class="col-md-2 control-label" for="formGroupInputSmall">Add category</label>
-        <input type="text" id="addCategory" class="form-control" placeholder="Enter here">
-        <input id="addButton" class="btn btn-primary" value="Add Child Category">
-        <input id="addSibling" class="btn btn-primary" value="Add Category on that level">
-    </form>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="alert alert-success" id="successMessage"></div>
+
+            <ul class="list-group">
+                @foreach($categories as $node)
+                     <?php echo \MyHelperFacade::renderNode($node); ?>
+                @endforeach
+            </ul>
+
+            <div id ='addWindow'></div>
+            <form id="categoryForm" class="form-inline"><input id = "token"type="hidden" name="_token" value="{{ \MyHelperFacade::tokenEncrypt() }}">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="formGroupInputSmall">Add category</label>
+                    <input type="text" id="addCategory" class="form-control" name="categoryName" placeholder="Enter here">
+                        <div class="btn-group">
+                            <button type="button" id="addButton" class="btn btn-small btn-success">Add Child Category</button>
+                            <button type="button" id="addSibling" class="btn btn-small btn-primary">Add Sibling Category</button>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
 
 
     <!-- Modal -->

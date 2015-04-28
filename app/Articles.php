@@ -14,6 +14,10 @@ class Articles extends Model {
 
     protected $dates = ['published_at'];
     //after database insert
+
+    /**
+     * @param $query
+     */
     public function scopePublished($query)
     {
 
@@ -44,6 +48,15 @@ class Articles extends Model {
     }
 
     /**
+     * @param $date
+     * @return Carbon
+     */
+    public function getPublishedAtAttribute($date)
+    {
+        return new Carbon($date);
+    }
+
+    /**
      * An article only has 1 user
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -64,6 +77,10 @@ class Articles extends Model {
     {
         return $this->belongsToMany('App\Tags', 'article_tags', 'article_id')->withTimestamps();
     }
+
+    /**
+     * @return mixed
+     */
 
     public function getTagListAttribute()
     {

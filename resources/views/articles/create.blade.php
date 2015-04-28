@@ -2,7 +2,7 @@
 
 @section('content')
 
-    {!! Form::open(['url' => 'articles'])!!}
+    {!! Form::model($article = new \App\Articles, ['url' => 'articles'])!!}
 
         @include('articles.form', ['submitButton' => 'Add Article'])
 

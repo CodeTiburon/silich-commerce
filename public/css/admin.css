@@ -10,9 +10,13 @@ h5 {
     display: inline-block;
 }
 
-.btn {
+[data-target="#myModal"] {
     margin-left: 100px;
 }
 #successMessage {
     display: none;
+}
+
+ul > li {
+    color: black;
 }

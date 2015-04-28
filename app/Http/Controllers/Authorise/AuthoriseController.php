@@ -41,17 +41,8 @@ class AuthoriseController extends Controller {
      */
     public function getRegister()
     {
-        //check is method working
 
-//        $user = Main_user::first();
-//        if($user->is('admin')) {
-//            return 1;
-//        }
-//        else {
-//            return 2;
-//        }
         return view('authorise.register');
-
     }
 
     /**
