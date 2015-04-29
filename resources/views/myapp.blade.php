@@ -9,6 +9,7 @@
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
     <!-- Temp admin css -->
     <link href="{{ asset('/css/admin.css') }}" rel="stylesheet">
+    @yield('assets')
 </head>
 <body>
 <div class="navbar navbar-inverse">
@@ -35,7 +36,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Menu<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{url('admin/categories')}}"><span class="glyphicon glyphicon-list-alt"></span> Categories</a></li>
-                                <li><a href="#"><span class="glyphicon glyphicon-credit-card"></span>Products</a></li>
+                                <li><a href="{{ url('admin/products') }}"><span class="glyphicon glyphicon-credit-card"></span>Products</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -64,7 +65,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script src="{{ asset('/js/jquery.form.js') }}"></script>
 <script src="{{ asset('/js/index.js') }}"></script>
-<!--<script src="{{ asset('/js/BootstrapPlugin/bootstrap-confirmation.js') }}"></script> -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/js/select2.min.js"></script>
 @yield('sources')
 </body>
 </html>

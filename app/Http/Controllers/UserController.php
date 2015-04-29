@@ -3,14 +3,14 @@
 use App\User_data;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request as ValidationRequest;
 use Symfony\Component\Security\Core\User\User;
-
-;
+use Request;
 
 class UserController extends Controller {
 
     public function index() {
+        return redirect()->back();
 
         $users = User_data::latest('name')->get();
 
@@ -34,7 +34,9 @@ class UserController extends Controller {
 
     }
 
-    public function store(Request $request) {
+
+    public function store(ValidationRequest $request) {
+
 
         $this->validate($request, ['name' => 'required', 'email' => 'required']);
 

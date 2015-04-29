@@ -28,8 +28,10 @@ Route::get('authorize', 'Authorise\AuthoriseController@authorize');
 Route::controllers([
     'authorize' => 'Authorise\AuthoriseController',
 ]);
+Route::get('admin/products/create', 'Admin\AdminController@createProduct');
+Route::post('admin/products/create', 'Admin\AdminController@create');
 Route::controllers([
-    'admin' => 'Admin\AdminController'
+    'admin' => 'Admin\AdminController',
 ]);
 
 Route::controllers([

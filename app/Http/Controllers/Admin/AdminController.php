@@ -3,14 +3,16 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Services\MyHelper;
 use App\Category;
 use Request;
 use Illuminate\Http\Request as RequestValidation;
 use MyHelperFacade;
+use App\Traits\ProductManagment;
 
 class AdminController extends Controller {
 
+
+    use ProductManagment;
 
     public function __construct()
     {
@@ -25,12 +27,23 @@ class AdminController extends Controller {
         return view('admin.index');
     }
 
+    /**
+     * Get category tree
+     * @return \Illuminate\View\View
+     */
+
     public function getCategories()
     {
         $categories = Category::all()->toHierarchy();
 
         return view('admin.categories', ['categories' => $categories]);
     }
+
+    /**
+     * Add child category
+     * @param RequestValidation $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
 
     public function postAdd(RequestValidation $request)
     {
@@ -46,6 +59,12 @@ class AdminController extends Controller {
 //        ]);
     }
 
+    /**
+     * Add sibling category
+     * @param RequestValidation $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+
     public function postSibling(RequestValidation $request)
     {
         $this->validate($request , [
@@ -55,6 +74,9 @@ class AdminController extends Controller {
        return $this->getTargetCategory();
     }
 
+    /**
+     * Delete target category
+     */
     public function postDelete()
     {
         $element = Category::where('id', '=', Request::input('data_id'))->first();
@@ -66,6 +88,10 @@ class AdminController extends Controller {
         dd(Category::isValidNestedSet());
     }
 
+    /**
+     * Analyse and define what to do(add child or add sibling)
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     private function getTargetCategory()
     {
         $root = Category::where('id', '=', Request::input('data_id'))->first();

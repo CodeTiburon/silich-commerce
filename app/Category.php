@@ -69,6 +69,12 @@ class Category extends Node {
    */
    protected $guarded = array('id', 'parent_id', 'lft', 'rgt', 'depth');
 
+   public function products()
+   {
+       return $this->belongsToMany('App\Product', 'categories_products')->withTimestamps();
+   }
+
+
   //
   // This is to support "scoping" which may allow to have multiple nested
   // set trees in the same database table.

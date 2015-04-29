@@ -47,4 +47,12 @@ class MyHelper {
         return "One Hello";
     }
 
+    public function filterLeaf($categories)
+    {
+        foreach($categories as $category) {
+            if($category->isLeaf()){
+                echo '<option value="'.$category->id. '">' . $category->name. '</option>';
+            }
+        }
+    }
 }
