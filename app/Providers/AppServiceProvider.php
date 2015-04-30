@@ -1,5 +1,6 @@
 <?php namespace App\Providers;
 
+use App\Services\ProductFile;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider {
@@ -29,6 +30,9 @@ class AppServiceProvider extends ServiceProvider {
 			'Illuminate\Contracts\Auth\Registrar',
 			'App\Services\Registrar'
 		);
+        $this->app->bind('ProductFile', function() {
+            return new ProductFile();
+        });
 	}
 
 }

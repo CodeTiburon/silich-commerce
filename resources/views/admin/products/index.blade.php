@@ -3,6 +3,7 @@
 @section('content')
 
     <h2>Products</h2>
+    <div id="successAjax" style="display: none"></div>
 
         @foreach($products as $product)
 

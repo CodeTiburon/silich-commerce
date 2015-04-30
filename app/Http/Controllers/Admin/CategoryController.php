@@ -7,12 +7,9 @@ use App\Category;
 use Request;
 use Illuminate\Http\Request as RequestValidation;
 use MyHelperFacade;
-use App\Traits\ProductManagment;
 
-class AdminController extends Controller {
+class CategoryController extends Controller {
 
-
-    use ProductManagment;
 
     public function __construct()
     {
@@ -24,20 +21,11 @@ class AdminController extends Controller {
      */
     public function getIndex()
     {
-        return view('admin.index');
-    }
-
-    /**
-     * Get category tree
-     * @return \Illuminate\View\View
-     */
-
-    public function getCategories()
-    {
         $categories = Category::all()->toHierarchy();
 
         return view('admin.categories', ['categories' => $categories]);
     }
+
 
     /**
      * Add child category
@@ -71,7 +59,7 @@ class AdminController extends Controller {
             'new_category' => 'required'
         ]);
 
-       return $this->getTargetCategory();
+        return $this->getTargetCategory();
     }
 
     /**

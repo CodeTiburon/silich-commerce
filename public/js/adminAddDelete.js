@@ -1,14 +1,6 @@
 $(document).ready(function() {
 
     var $_token = $('#token').val();
-    var selectButton = function(e) {
-        e.stopPropagation();
-        $('li').removeClass('current');
-        $(this).addClass('current');
-        //data = $(this).data('id');
-        //element = $(this);
-        $('#categoryForm').fadeIn(800);
-    };
     //Add form showing
 
     $('ul').on('click','li', function(e) {
@@ -30,7 +22,7 @@ $(document).ready(function() {
         var newCategory = $('#addCategory').val();
         var data = $('li.active').data('id');
         $.ajax({
-            url: 'add',
+            url: 'categories/add',
             type: 'post',
             headers: { 'X-XSRF-TOKEN' : $_token },
             data: {
@@ -83,7 +75,7 @@ $(document).ready(function() {
         var newCategory = $('#addCategory').val();
         var data = $('li.active').data('id');
         $.ajax({
-            url: 'sibling',
+            url: 'categories/sibling',
             type: 'post',
             headers: { 'X-XSRF-TOKEN' : $_token },
             data: {
@@ -136,7 +128,7 @@ $(document).ready(function() {
         $('#myModal').modal('show');
         $('#confirmDelete').on('click', function() {
             $.ajax({
-                url: 'delete',
+                url: 'categories/delete',
                 type: 'post',
                 headers: { 'X-XSRF-TOKEN' : $_token },
                 data: {

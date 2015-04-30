@@ -9,7 +9,7 @@ class Photo extends Model {
         'title'
     ];
 
-    public function products()
+    public function product()
     {
         return $this->belongsTo('App\Product');
     }

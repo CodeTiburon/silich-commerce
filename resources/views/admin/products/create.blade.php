@@ -11,8 +11,16 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">Create new product</div>
-
-                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/products/create') }}" enctype="multipart/form-data">
+                    <div class="panel-body">
+                        <!-- Success without ajax -->
+                        @if(Session::has('success'))
+                            <div class="alert alert-success">
+                                <h3>{{ Session::get('success') }}</h3>
+                            </div>
+                        @endif
+                        <div id="successAjax" style="display: none"></div>
+                        <div id="errorAjax" style="display: none"></div>
+                        <form id="productCreateForm" class="form-horizontal" role="form" method="POST" action="{{ url('/admin/products/create') }}" enctype="multipart/form-data">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                             <div class="form-group">
@@ -32,7 +40,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Upload photo for a product</label>
                                 <div class="col-md-6">
-                                    <input type="file" class="form-control" name="file" multiple>
+                                    <input type="file" class="form-control" multiple name="file[]">
                                 </div>
                             </div>
 
@@ -53,6 +61,23 @@
                                 </div>
                             </div>
                         </form>
+                            <!-- Error handling without ajax -->
+                            @if (count($errors) > 0)
+                                <div class="alert alert-danger">
+                                    There were some problems with your input.<br><br>
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            @if(Session::has('error'))
+                                <div class="alert alert-danger">
+                                   <p> {{ Session::get('error') }} </p>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
@@ -63,6 +88,7 @@
 @section('sources')
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/js/select2.min.js"></script>
     <script src="{{ asset('/js/selectedTags.js') }}"></script>
+    <script src="{{ asset('/js/categoryAddDelete.js') }}"></script>
 @endsection
 
 
