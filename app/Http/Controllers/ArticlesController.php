@@ -75,7 +75,6 @@ class ArticlesController extends Controller {
      */
     public function edit(Articles $article)
     {
-
         $tags = Tags::lists('name', 'id');
 
         return view('articles.edit', compact('article', 'tags'));

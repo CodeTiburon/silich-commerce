@@ -40,6 +40,10 @@ class RouteServiceProvider extends ServiceProvider {
         });
 
         $router->model('tags', 'App\Tags');
+
+        $router->bind('products', function($id) {
+            return \App\Product::find($id);
+        });
 	}
 
 	/**

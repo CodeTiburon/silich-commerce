@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Category;
+use App\Photo;
 use App\Product;
 use App\Services\ProductFile;
 use Illuminate\Http\Request as RequestValidation;
@@ -20,7 +21,6 @@ class ProductController extends Controller {
     public function getIndex()
     {
         $products = Product::latest()->get();
-
         return view('admin.products.index', compact('products'));
     }
 
@@ -55,5 +55,26 @@ class ProductController extends Controller {
         return $uploader->insertProduct($request, $files);
     }
 
+    public function getEdit($id)
+    {
+        $product = Product::find($id);
+        return view('admin.products.show', compact('product'));
+    }
+
+
+    public function patchUpdate($id, RequestValidation $request)
+    {
+        $product = Product::findOrFail($id);
+
+        $product->update($request->all());
+
+        return redirect('admin/products');
+    }
+
+    public function delete($id)
+    {
+        Product::find($id)->delete();
+        Photo::where('product_id', '=', $id)->delete();
+    }
 
 }

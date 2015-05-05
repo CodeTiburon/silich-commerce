@@ -88,7 +88,7 @@
 @section('sources')
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/js/select2.min.js"></script>
     <script src="{{ asset('/js/selectedTags.js') }}"></script>
-    <script src="{{ asset('/js/categoryAddDelete.js') }}"></script>
+    <script src="{{ asset('/js/productAddDelete.js') }}"></script>
 @endsection
 
 

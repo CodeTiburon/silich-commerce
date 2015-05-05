@@ -63,19 +63,21 @@ class ProductFile {
             $validator = \Validator::make($fileValidation, $rules);
             if ($validator->passes()) {
                 $destinationPath = public_path() . '/assets/uploads';
-                $fileName = $file->getClientOriginalName();
+                $fileName = microtime(true) . md5($destinationPath);;
                 $photo = new Photo(['title' => $fileName]);
                 $product->photos()->save($photo);
                 $file->move($destinationPath, $fileName);
 
-                //Imagick ??
-//                $image = new \Imagick(asset('/assets/uploads/'.$fileName));
-//                $cropWidth = $image->getImageWidth();
-//                $cropHeight = $image->getImageHeight();
-//                if($cropWidth > 1024 || $cropHeight > 768) {
-//                    $image->thumbnailImage(800, 600);
-//                    $image->writeImage(asset('/assets/uploads/'.$fileName));
-//                }
+                //crop the image to desired resolution
+                $pathFile = $destinationPath . '/' . $fileName;
+
+                $image = new \Imagick($pathFile);
+                $cropWidth = $image->getImageWidth();
+                $cropHeight = $image->getImageHeight();
+                if($cropWidth > 1024 || $cropHeight > 768) {
+                    $image->thumbnailImage(800, 600);
+                    $image->writeImage($pathFile);
+                }
                 $uploadCount++;
             }
         }

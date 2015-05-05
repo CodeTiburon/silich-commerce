@@ -47,6 +47,10 @@ class MyHelper {
         return "One Hello";
     }
 
+    /**
+     * Filter leafs in select list in products managment
+     * @param $categories
+     */
     public function filterLeaf($categories)
     {
         foreach($categories as $category) {
@@ -55,4 +59,6 @@ class MyHelper {
             }
         }
     }
+
+
 }

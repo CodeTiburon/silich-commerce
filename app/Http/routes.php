@@ -28,6 +28,8 @@ Route::get('authorize', 'Authorise\AuthoriseController@authorize');
 Route::controllers([
     'authorize' => 'Authorise\AuthoriseController',
 ]);
+//Route::get('admin/products/{product}/delete', 'Admin\ProductController@delete');
+//Route::get('admin/products/{product}', 'Admin\ProductController@show');;
 Route::controllers([
     'admin/categories' => 'Admin\CategoryController',
     'admin/products' => 'Admin\ProductController'
