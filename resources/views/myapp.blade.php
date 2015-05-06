@@ -31,15 +31,12 @@
             </ul>
             @else
                 @if(\Auth::user()->isAdmin())
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Menu<span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
+
+                            <ul class="nav navbar-nav " role="menu">
                                 <li><a href="{{url('admin/categories')}}"><span class="glyphicon glyphicon-list-alt"></span> Categories</a></li>
                                 <li><a href="{{ url('admin/products') }}"><span class="glyphicon glyphicon-credit-card"></span>Products</a></li>
                             </ul>
-                        </li>
-                    </ul>
+
                 @endif
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
@@ -63,7 +60,6 @@
 <!-- Scripts -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/js/select2.min.js"></script>
 <script src="{{ asset('/js/jquery.form.js') }}"></script>
 <script src="{{ asset('/js/index.js') }}"></script>
 @yield('sources')

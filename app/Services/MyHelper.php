@@ -61,4 +61,23 @@ class MyHelper {
     }
 
 
+    /**
+     *  Currently selected categories
+     * @param $categories
+     * @param $currentCategories
+     */
+    public function editFilterLeaf($categories, $currentCategories)
+    {
+        foreach($categories as $category) {
+            if($category->isLeaf()){
+                if(in_array($category->name, $currentCategories)) {
+                    echo '<option value="'.$category->id. '" selected>' . $category->name. '</option>';
+                } else{
+                    echo '<option value="'.$category->id. '">' . $category->name. '</option>';
+                }
+            }
+        }
+    }
+
+
 }

@@ -15,6 +15,18 @@ $(document).ready(function() {
                 $('#errorAjax').addClass('alert alert-danger').append(value).show('slow');
             })
         }
+    });
+    $('#updateProductForm').ajaxForm({
+        success: function(data) {
+            window.location.replace(data.redirectTo);
+        },
+        error: function(data) {
+            $('#errorAjax').empty().hide('slow');
+            var message = data.responseJSON;
+            $.each (message, function(index, value) {
+                $('#errorAjax').addClass('alert alert-danger').append(value).show('slow');
+            })
+        }
     })
 
 });

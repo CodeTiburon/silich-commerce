@@ -8,8 +8,8 @@ use App\Photo;
 use App\Product;
 use App\Services\ProductFile;
 use Illuminate\Http\Request as RequestValidation;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Request;
-
 
 class ProductController extends Controller {
 
@@ -58,23 +58,44 @@ class ProductController extends Controller {
     public function getEdit($id)
     {
         $product = Product::find($id);
-        return view('admin.products.show', compact('product'));
+
+        $photos = Photo::where('product_id', '=', $id)->get();
+        $mainPhoto = Photo::where('id', '=', $product->photo_id)->first()->title;
+
+        $categories = Category::all();
+        $currentCategories = $product->categories()->lists('name');
+
+        return view('admin.products.show', compact('product', 'photos', 'mainPhoto', 'categories', 'currentCategories'));
     }
 
 
-    public function patchUpdate($id, RequestValidation $request)
+    public function patchUpdate($id, RequestValidation $request, ProductFile $uploader)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required',
+            'categories_list' => 'required'
+        ]);
         $product = Product::findOrFail($id);
 
         $product->update($request->all());
+        $uploader->syncCategory($product, $request->input('categories_list'));
 
-        return redirect('admin/products');
+        return response()->json([
+            "redirectTo" => './../'
+        ]);
     }
 
-    public function delete($id)
+    public function postDelete($id, Filesystem $fileDelete)
     {
+        $files = Photo::where('product_id', '=', $id)->get();
         Product::find($id)->delete();
-        Photo::where('product_id', '=', $id)->delete();
+        foreach($files as $file) {
+            $fileName = $file->title;
+            $absoluteParse = parse_url($fileName);
+            $absolutePath = $absoluteParse['path'];
+            unlink('/var/www/html/test1.com/public' . $absolutePath);
+        }
     }
 
 }

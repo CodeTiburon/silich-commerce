@@ -30,6 +30,9 @@ class ProductFile {
                 'file' => 'There was some problem with file uploading'
             ]);
         }
+        $updateProductFirstFile = $product->photos()->first()->id;
+        $product->photo_id = $updateProductFirstFile;
+        $product->save();
         return response()->json([
             'success' => 'Product was created successfully',
             'redirectTo' => '../products'
@@ -41,7 +44,7 @@ class ProductFile {
      * @param Product $product
      * @param array $categories
      */
-    private function syncCategory(Product $product, array $categories)
+    public function syncCategory(Product $product, array $categories)
     {
         $product->categories()->sync($categories);
     }
@@ -64,20 +67,26 @@ class ProductFile {
             if ($validator->passes()) {
                 $destinationPath = public_path() . '/assets/uploads';
                 $fileName = microtime(true) . md5($destinationPath);;
-                $photo = new Photo(['title' => $fileName]);
-                $product->photos()->save($photo);
-                $file->move($destinationPath, $fileName);
-
-                //crop the image to desired resolution
-                $pathFile = $destinationPath . '/' . $fileName;
-
-                $image = new \Imagick($pathFile);
+//                $photo = new Photo(['title' => $fileName]);
+//                $product->photos()->save($photo);
+                $pathFileTemp = $file->getRealPath();
+//                $file->move($destinationPath, $fileName);
+//
+//
+//                //crop the image to desired resolution
+                $image = new \Imagick($pathFileTemp);
                 $cropWidth = $image->getImageWidth();
                 $cropHeight = $image->getImageHeight();
-                if($cropWidth > 1024 || $cropHeight > 768) {
+                $pathFile = $destinationPath . '/' . $fileName . '.' . $image->getImageFormat();
+
+                if ($cropWidth > 1024 || $cropHeight > 768) {
                     $image->thumbnailImage(800, 600);
-                    $image->writeImage($pathFile);
                 }
+                $image->writeImage($pathFile);
+                $fileUrlPath = asset('assets/uploads/'. $fileName . '.' . $image->getImageFormat());
+                $photo = new Photo(['title' => $fileUrlPath]);
+                $product->photos()->save($photo);
+
                 $uploadCount++;
             }
         }

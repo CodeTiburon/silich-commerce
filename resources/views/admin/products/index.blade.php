@@ -19,7 +19,7 @@
         @foreach($products as $product)
 
             <tr>
-                <td><img src="{{ asset('assets/uploads/' . $product->photos()->first()['title']) }}" width="150px" height="100px"></td>
+                <td><img src="{{ $product->photos()->first()['title']}}" width="150px" height="100px"></td>
                 <td>{{ $product->name }}</td>
                 <td>{{ $product->description }}</td>
                 <td><a href="{{ url('admin/products/edit', $product->id) }}">Edit</a></td>
