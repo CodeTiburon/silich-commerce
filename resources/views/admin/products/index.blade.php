@@ -14,14 +14,19 @@
             <th>Photo</th>
             <th>Name</th>
             <th>Description</th>
+            <th>Price</th>
             <th>Options</th>
         </tr>
         @foreach($products as $product)
 
             <tr>
-                <td><img src="{{ $product->photos()->first()['title']}}" width="150px" height="100px"></td>
+                <td><img src="{{ empty($product->photos()
+                ->where('id', '=', $product->photo_id)
+                ->first()['title']) ? asset('assets/uploads/no-thumb.png')
+                :$product->photos()->where('id', '=', $product->photo_id)->first()['title']}}" width="150px" height="100px"></td>
                 <td>{{ $product->name }}</td>
                 <td>{{ $product->description }}</td>
+                <td>{{ $product->price }}</td>
                 <td><a href="{{ url('admin/products/edit', $product->id) }}">Edit</a></td>
             </tr>
 

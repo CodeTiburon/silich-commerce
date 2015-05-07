@@ -8,7 +8,6 @@ use App\Photo;
 use App\Product;
 use App\Services\ProductFile;
 use Illuminate\Http\Request as RequestValidation;
-use Illuminate\Contracts\Filesystem\Filesystem;
 use Request;
 
 class ProductController extends Controller {
@@ -17,6 +16,11 @@ class ProductController extends Controller {
     {
         $this->middleware('admin');
     }
+
+    /**
+     * Display all products
+     * @return \Illuminate\View\View
+     */
 
     public function getIndex()
     {
@@ -31,7 +35,7 @@ class ProductController extends Controller {
 
     public function getCreate()
     {
-        $categories = Category::all();
+        $categories = Category::all()->toHierarchy();
 
         return view('admin.products.create', compact('categories'));
     }
@@ -47,6 +51,7 @@ class ProductController extends Controller {
         $this->validate($request, [
             'name' => 'required',
             'description' => 'required',
+            'price' => 'required|numeric',
             'file' => 'required',
             'categories_list' => 'required'
         ]);
@@ -55,26 +60,39 @@ class ProductController extends Controller {
         return $uploader->insertProduct($request, $files);
     }
 
+    /**
+     * Edit existing article, pass information from db to form
+     * @param $id
+     * @return \Illuminate\View\View
+     */
     public function getEdit($id)
     {
         $product = Product::find($id);
 
         $photos = Photo::where('product_id', '=', $id)->get();
-        $mainPhoto = Photo::where('id', '=', $product->photo_id)->first()->title;
+        $mainPhoto = Photo::where('id', '=', $product->photo_id)->first();
 
-        $categories = Category::all();
+        $categories = Category::all()->toHierarchy();
         $currentCategories = $product->categories()->lists('name');
 
         return view('admin.products.show', compact('product', 'photos', 'mainPhoto', 'categories', 'currentCategories'));
     }
 
 
+    /**
+     * Update an existing file
+     * @param $id
+     * @param RequestValidation $request
+     * @param ProductFile $uploader
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function patchUpdate($id, RequestValidation $request, ProductFile $uploader)
     {
         $this->validate($request, [
             'name' => 'required',
             'description' => 'required',
-            'categories_list' => 'required'
+            'price' => 'required|numeric',
+            'categories_list' => 'required',
         ]);
         $product = Product::findOrFail($id);
 
@@ -86,16 +104,30 @@ class ProductController extends Controller {
         ]);
     }
 
-    public function postDelete($id, Filesystem $fileDelete)
+    /**
+     * Delete a product and related images
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     */
+    public function postDelete(ProductFile $fileHelper)
     {
+        $id = Request::input('delete_id');
         $files = Photo::where('product_id', '=', $id)->get();
         Product::find($id)->delete();
-        foreach($files as $file) {
-            $fileName = $file->title;
-            $absoluteParse = parse_url($fileName);
-            $absolutePath = $absoluteParse['path'];
-            unlink('/var/www/html/test1.com/public' . $absolutePath);
-        }
+
+        return $fileHelper->fileDelete($files);
     }
 
+
+    /**
+     * Make targeted photo primary
+     * @param ProductFile $fileHelper
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function postMakeMain(ProductFile $fileHelper)
+    {
+        $product = Product::find(Request::input('product_id'));
+        $targetPhoto = Request::input('target_photo_id');
+        return $fileHelper->makePrimary($product, $targetPhoto);
+    }
 }

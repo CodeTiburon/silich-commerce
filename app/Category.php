@@ -69,7 +69,11 @@ class Category extends Node {
    */
    protected $guarded = array('id', 'parent_id', 'lft', 'rgt', 'depth');
 
-   public function products()
+    /**
+     * Get products that have a particular category
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function products()
    {
        return $this->belongsToMany('App\Product', 'categories_products')->withTimestamps();
    }

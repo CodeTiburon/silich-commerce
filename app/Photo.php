@@ -9,6 +9,10 @@ class Photo extends Model {
         'title'
     ];
 
+    /**
+     * Get product associated with photo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function product()
     {
         return $this->belongsTo('App\Product');

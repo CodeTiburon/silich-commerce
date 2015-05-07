@@ -9,8 +9,13 @@ class Product extends Model {
         'photo_id',
         'name',
         'description',
+        'price',
     ];
 
+    /**
+     * Get photos associated with product
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function photos()
     {
         return $this->hasMany('App\Photo');

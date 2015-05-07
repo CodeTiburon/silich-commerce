@@ -25,7 +25,11 @@ class AddNameToCategories extends Migration {
      */
     public function down()
     {
-        Schema::dropColumn('name');
+        Schema::table('products', function(Blueprint $table) {
+
+            Schema::dropColumn('name');
+
+        });
     }
 
 }

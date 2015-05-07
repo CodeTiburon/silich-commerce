@@ -12,8 +12,8 @@
       <column name="tags_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
-      <foreign-key name="article_tags_tags_id_foreign" columns="tags_id" ref-table="tags" ref-schema="" ref-catalog="test" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
       <foreign-key name="article_tags_article_id_foreign" columns="article_id" ref-table="articles" ref-schema="" ref-catalog="test" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <foreign-key name="article_tags_tags_id_foreign" columns="tags_id" ref-table="tags" ref-schema="" ref-catalog="test" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
       <index name="article_tags_article_id_index" unique="false" columns="article_id"/>
       <index name="article_tags_tags_id_index" unique="false" columns="tags_id"/>
     </table>
@@ -50,8 +50,8 @@
       <column name="product_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
-      <foreign-key name="categories_products_product_id_foreign" columns="product_id" ref-table="products" ref-schema="" ref-catalog="test" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
       <foreign-key name="categories_products_category_id_foreign" columns="category_id" ref-table="categories" ref-schema="" ref-catalog="test" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <foreign-key name="categories_products_product_id_foreign" columns="product_id" ref-table="products" ref-schema="" ref-catalog="test" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
       <index name="categories_products_category_id_foreign" unique="false" columns="category_id"/>
       <index name="categories_products_product_id_foreign" unique="false" columns="product_id"/>
     </table>
@@ -89,6 +89,7 @@
       <column name="description" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
       <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="price" sqlType="DOUBLE" precision="8" scale="2" nullable="false" jdbcType="8"/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="categories_products_product_id_foreign" table="categories_products" schema="" catalog="test" columns="product_id"/>
       <exported-key name="photos_product_id_foreign" table="photos" schema="" catalog="test" columns="product_id"/>

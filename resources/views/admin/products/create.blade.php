@@ -38,6 +38,13 @@
                             </div>
 
                             <div class="form-group">
+                                <label class="col-md-4 control-label">Price in $</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="price" value="{{ old('price') }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label class="col-md-4 control-label">Upload photo for a product</label>
                                 <div class="col-md-6">
                                     <input type="file" class="form-control" multiple name="file[]">
@@ -48,7 +55,9 @@
                                 <label class="col-md-4 control-label">Select product categories</label>
                                 <div class="col-md-6">
                                     <select id="categories_list" class="form-control" multiple name="categories_list[]" tabindex="-1" style="display: none">
-                                        {{ \MyHelperFacade::filterLeaf($categories) }}
+                                        @foreach($categories as $category)
+                                        <?php echo \MyHelperFacade::filterLeaf($category) ?>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

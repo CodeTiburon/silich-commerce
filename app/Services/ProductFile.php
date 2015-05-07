@@ -20,22 +20,30 @@ class ProductFile {
      * @param array $files
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function insertProduct(RequestValidation $request, array $files)
+    public function insertProduct(RequestValidation $request, $files)
     {
         $product = Product::create($request->all());
 
         $this->syncCategory($product, $request->input('categories_list'));
-        if(!($this->uploadFiles($files, $product))) {
-            return response()->json([
-                'file' => 'There was some problem with file uploading'
-            ]);
+
+        if ($files == null){
+            $updateProductFirstFile = null;
+        } else {
+            if (!($this->uploadFiles($files, $product))) {
+                return response()->json([
+                    'file' => 'There was some problem with file uploading'
+                ]);
+            }
+
+            $updateProductFirstFile = $product->photos()->first()->id;
         }
-        $updateProductFirstFile = $product->photos()->first()->id;
+
         $product->photo_id = $updateProductFirstFile;
         $product->save();
+
         return response()->json([
             'success' => 'Product was created successfully',
-            'redirectTo' => '../products'
+            'redirectTo' => '../products/edit/' . $product->id
         ]);
     }
 
@@ -64,6 +72,7 @@ class ProductFile {
             $rules = ['file' => 'required|image'];
 
             $validator = \Validator::make($fileValidation, $rules);
+
             if ($validator->passes()) {
                 $destinationPath = public_path() . '/assets/uploads';
                 $fileName = microtime(true) . md5($destinationPath);;
@@ -90,10 +99,51 @@ class ProductFile {
                 $uploadCount++;
             }
         }
-        if($fileCount == $uploadCount) {
+        if ($fileCount == $uploadCount) {
             return true;
         } else {
             return false;
         }
     }
+
+    /**
+     * Delete files
+     * @param $files
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function fileDelete($files)
+    {
+        foreach($files as $file) {
+            $fileName = $file->title;
+            $absoluteParse = parse_url($fileName);
+            $absolutePath = $absoluteParse['path'];
+
+            if (!unlink('/var/www/html/test1.com/public' . $absolutePath)) {
+                return response()->json([
+                    'error' => 'Some files wasn\'t  deleted, please do it manually'
+                ]);
+            };
+
+        }
+        return response()->json([
+            'redirectTo' => '/admin/products'
+        ]);
+    }
+
+    /**
+     * Make targeted photo primary
+     * @param $product
+     * @param $targetPhoto
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function makePrimary($product, $targetPhoto)
+    {
+        $mainPhoto = Photo::where('id', '=', $product->photo_id)->first();
+        $product->photo_id = $targetPhoto;
+        $product->save();
+        return response()->json([
+            'old_main' => $mainPhoto->id
+        ]);
+    }
+
 }

@@ -30,7 +30,10 @@ class AuthoriseController extends Controller {
     }
 
 
-	public function authorize() {
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function authorize() {
 
         return view('authorise.main');
 

@@ -7,7 +7,8 @@ class MyHelper {
      * @param $node
      * @return string
      */
-    public function renderNode($node) {
+    public function renderNode($node)
+    {
 
         if( $node->isLeaf() ) {
             return '<li class="list-group-item" data-id="'. $node->id .'""><h5>' . $node->name . '</h5><button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">
@@ -32,7 +33,7 @@ class MyHelper {
     }
 
     /**
-     * Encrypts a token to
+     * Encrypts a token
      * @return mixed
      */
     public function tokenEncrypt()
@@ -47,17 +48,29 @@ class MyHelper {
         return "One Hello";
     }
 
+
     /**
-     * Filter leafs in select list in products managment
-     * @param $categories
+     * Display select list in categories
+     * @param $category
+     * @return string
      */
-    public function filterLeaf($categories)
+    public function filterLeaf($category)
     {
-        foreach($categories as $category) {
-            if($category->isLeaf()){
-                echo '<option value="'.$category->id. '">' . $category->name. '</option>';
-            }
+        $depthMeter = '&rarr;';
+
+        if ($category->isLeaf()) {
+            return '<option value="' . $category->id . '">' . str_repeat($depthMeter,$category->depth) . $category->name . '</option>';
+        } else {
+            $html = '<optgroup label="' . str_repeat($depthMeter,$category->depth) . $category->name . '" >' . $category->depth ;
+
+            foreach($category->children as $child)
+                $html .= $this->filterLeaf($child);
+
+            $html .= '</optgroup>';
         }
+
+        return $html;
+
     }
 
 
@@ -66,17 +79,28 @@ class MyHelper {
      * @param $categories
      * @param $currentCategories
      */
-    public function editFilterLeaf($categories, $currentCategories)
+    public function editFilterLeaf($category, $currentCategories)
     {
-        foreach($categories as $category) {
-            if($category->isLeaf()){
-                if(in_array($category->name, $currentCategories)) {
-                    echo '<option value="'.$category->id. '" selected>' . $category->name. '</option>';
-                } else{
-                    echo '<option value="'.$category->id. '">' . $category->name. '</option>';
-                }
+        $depthMeter = '&rarr;';
+
+        if ($category->isLeaf()) {
+
+            if (in_array($category->name, $currentCategories)) {
+                return '<option value="' . $category->id . '" selected>' . str_repeat($depthMeter, $category->depth) . $category->name . '</option>';
+            } else {
+                return '<option value="' . $category->id . '">' . str_repeat($depthMeter, $category->depth) . $category->name . '</option>';
             }
+
+        } else {
+            $html = '<optgroup label="' . str_repeat($depthMeter,$category->depth) . $category->name . '" >' . $category->depth ;
+
+            foreach ($category->children as $child)
+                $html .= $this->editFilterLeaf($child, $currentCategories);
+
+            $html .= '</optgroup>';
         }
+
+        return $html;
     }
 
 
