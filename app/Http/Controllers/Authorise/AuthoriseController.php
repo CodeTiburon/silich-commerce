@@ -99,29 +99,4 @@ class AuthoriseController extends Controller {
         ]);
     }
 
-//    public function login() {
-//
-//
-//        return view('authorise.login');
-//    }
-//
-//    public function register() {
-//
-//        return view('authorise.register');
-//
-//    }
-//
-//    public function tryLogin(Request $request) {
-//
-//        return $request->all();
-//    }
-//
-//    public function tryRegister(CreateNewUserRequest $userRequest) {
-//
-//        Main_user::create($userRequest->all());
-//
-//        return 'Welcome ' . $userRequest->name;
-//
-//    }
-
 }

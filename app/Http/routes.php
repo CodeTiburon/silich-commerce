@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+//Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
@@ -34,7 +34,9 @@ Route::controllers([
     'admin/categories' => 'Admin\CategoryController',
     'admin/products' => 'Admin\ProductController'
 ]);
-
+Route::get('/', 'Home\DisplayProductsController@index');
+Route::get('/product/show/{$id}', 'Home\DisplayProductsController@show');
+Route::controllers(['/products' => 'Home\DisplayProductsController']);
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',

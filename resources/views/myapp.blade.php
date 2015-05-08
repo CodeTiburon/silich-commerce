@@ -16,7 +16,7 @@
     <div class="container-fluid">
 
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Authorization</a>
+            <a class="navbar-brand" href="{{url('/')}}">E-commerce</a>
         </div>
 
         <div class="collpase navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -55,6 +55,9 @@
 
 
     @yield('content')
+</div>
+<div class="container-fluid">
+    @yield('mainContent')
 </div>
     @yield('footer')
 <!-- Scripts -->

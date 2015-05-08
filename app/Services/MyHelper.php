@@ -32,6 +32,28 @@ class MyHelper {
         return $html;
     }
 
+    public function categoriesRender($category)
+    {
+
+        if( $category->isLeaf() ) {
+            return '<li class="list-group-item category" data-id="'. $category->id .'""><h5>' . $category->name . '</h5></li>';
+        } else {
+            $html = '<li class="list-group-item category"><h5>' . $category->name . '</h5>';
+
+            $html .= '<ul class="list-group">';
+
+            foreach($category->children as $child)
+                $html .= $this->categoriesRender($child);
+
+            $html .= '</ul>';
+
+            $html .= '</li>';
+        }
+
+        return $html;
+
+    }
+
     /**
      * Encrypts a token
      * @return mixed
@@ -75,9 +97,10 @@ class MyHelper {
 
 
     /**
-     *  Currently selected categories
-     * @param $categories
+     * Edit categories of the existing product
+     * @param $category
      * @param $currentCategories
+     * @return string
      */
     public function editFilterLeaf($category, $currentCategories)
     {
