@@ -21,9 +21,9 @@ $(document).ready(function() {
                     for (product in products) {
                         var productHtml = _.template($('#productTemplate').html());
 
-                        var categories = productHtml(products[product]);
+                        var productsDisplay = productHtml(products[product]);
 
-                        $('.products').append(categories).hide().fadeIn('slow');
+                        $('.products').append(productsDisplay).hide().fadeIn('slow');
                     }
                 }
 
@@ -31,24 +31,45 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on('mouseenter','.product', function(e) {
-       $(this).addClass('showProducts');
-        $(this).on('mouseleave', function() {
+    $('.products').on('mouseenter','.product', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        $(this).addClass('showProducts');
+        $(this).on('mouseleave', function () {
             $(this).removeClass('showProducts');
         });
-        $(this).on('click', function() {
+    });
+
+        $(document).on('click','.addToCart', function(e){
+            e.stopPropagation();
+            var data = $(this).siblings('img').data('id');
+            $.ajax({
+                url: '/cart/add',
+                type: 'POST',
+                headers: { 'X-XSRF-TOKEN' : $_token},
+                data: {
+                    product_id: data
+                },
+                success: function(data) {
+                    var quantity = data.quantity;
+                    var sum= data.price;
+                    for(prop in sum){
+                        alert(sum[prop]);
+                    }
+                    $('.shoppingCart').empty().text('Quantity: ' + quantity + ' Price: ' + sum);
+                }
+            })
+        });
+        $(document).on('click','.product', function(e) {
+            e.stopPropagation();
             var data = $(this).find("img").data('id');
             $.ajax({
-                url: '/products/show-product/',
+                url: '/products/show/'+data,
                 type: 'POST',
-                headers: { 'X-XSRF-TOKEN' : $_token },
-                data: {
-                    prod_id: data
-                },
+                headers: { 'X-XSRF-TOKEN' : $_token},
                 success: function(data) {
                     window.location.replace(data.redirectTo);
                 }
-            })
+            });
         })
-    })
 });

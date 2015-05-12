@@ -35,11 +35,23 @@ ul > li {
     display: inline-block;
 
 }
+.sort {
+    display: inline-block;
+}
 .mainPhoto {
 
     -webkit-box-shadow:0 0 20px blue;
     -moz-box-shadow: 0 0 20px blue;
     box-shadow:0 0 20px blue;
 
+}
+
+.priceColumn {
+    color: forestgreen;
+}
+
+#cart {
+    position: absolute;
+    right:10px;
 }
 

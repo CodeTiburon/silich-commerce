@@ -10,9 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
-//Route::get('/', 'WelcomeController@index');
-
+Route::get('/flash','Home\CartController@flash' );
 Route::get('home', 'HomeController@index');
 
 Route::resource('user', 'UserController');
@@ -28,15 +26,15 @@ Route::get('authorize', 'Authorise\AuthoriseController@authorize');
 Route::controllers([
     'authorize' => 'Authorise\AuthoriseController',
 ]);
-//Route::get('admin/products/{product}/delete', 'Admin\ProductController@delete');
-//Route::get('admin/products/{product}', 'Admin\ProductController@show');;
+
 Route::controllers([
     'admin/categories' => 'Admin\CategoryController',
-    'admin/products' => 'Admin\ProductController'
+    'admin/products' => 'Admin\ProductController',
+    'products' => 'Home\DisplayProductsController',
+    'cart' => 'Home\CartController'
 ]);
 Route::get('/', 'Home\DisplayProductsController@index');
-Route::get('/product/show/{$id}', 'Home\DisplayProductsController@show');
-Route::controllers(['/products' => 'Home\DisplayProductsController']);
+Route::post('products/show', 'Home\DisplayProductsController@postShow');
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',

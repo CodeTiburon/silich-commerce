@@ -21,22 +21,10 @@
         </div>
     </div>
 
+
     <input id = "token" type="hidden" name="_token" value="{{ \MyHelperFacade::tokenEncrypt() }}">
 
     <script type="text/template" id ="productTemplate">
-       {{--<!-- <table class="table">--}}
-            {{--<caption>Available Products</caption>--}}
-            {{--<th>Photo</th>--}}
-            {{--<th>Name</th>--}}
-            {{--<th>Description</th>--}}
-            {{--<th>Price</th>--}}
-            {{--<tr>--}}
-                {{--<td><img src="<%= photo %>" width="200px" height="160px"/></td>--}}
-                {{--<td><%= name %></td>--}}
-                {{--<td><%= description %></td>--}}
-                {{--<td><%= price %></td>--}}
-            {{--</tr>--}}
-        {{--</table> -->--}}
 
         <div class="col-sm-3 product">
 
@@ -44,9 +32,19 @@
             <p><%= name %></p>
             <p><%= description %></p>
             <span>Price: <%= price %>$</span>
-
+            <br />
+            <button class="btn btn-success btn-sm addToCart"><span class="glyphicon glyphicon-shopping-cart"> Add to cart</span></button>
         </div>
     </script>
+
+    <div id="cart" class="col-sm-1">
+        <div class="panel panel-default">
+            <div class="panel panel-heading">
+            <span class="glyphicon glyphicon-shopping-cart"> Cart</span>
+            </div>
+            <div class="panel panel-body shoppingCart">There are no products in your cart</div>
+        </div>
+    </div>
 @endsection
 
 @section('sources')

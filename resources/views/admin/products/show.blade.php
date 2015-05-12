@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="{{ asset('/assets/fancyBox/source/jquery.fancybox.css?v=2.1.5') }}" type="text/css" media="screen" />
     <link rel="stylesheet" href="{{ asset('/assets/fancyBox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5') }}" type="text/css" media="screen" />
     <link rel="stylesheet" href="{{ asset('/assets/fancyBox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7') }}" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ asset('/assets/jQueryUI/jquery-ui.min.css') }}">
 @endsection
 
 @section('content')
@@ -67,7 +68,6 @@
                                     <button class="btn btn-default btn-sm buttonPicture" type="button" id="buttonPhoto-{{ $mainPhoto->id}}" data-id="{{ $mainPhoto->id }}" style="display: none">Make main</button>
                                     <img id="mainPhoto" class= "mainPhoto" src="{{ $mainPhoto->title }}" alt="" width="100" height="80" data-product-id="{{ $product->id }}" />
                                 </a>
-
                                   @foreach($photos as $photo)
                                       <?php if($photo->title == $mainPhoto->title) {
                                           continue;
@@ -76,7 +76,6 @@
                                         <button class="btn btn-default btn-sm buttonPicture" type="button" id="buttonPhoto-{{ $photo->id}}" data-id="{{ $photo->id }}">Make main</button>
                                         <img src="{{ $photo->title }}" alt="" width="100" height="80" />
                                     </a>
-
                                   @endforeach
 
 
@@ -86,6 +85,7 @@
                                 </div> -->
                             </div>
                             @endif
+                        <br />
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Select product categories</label>
                                 <div class="col-md-6">
@@ -145,6 +145,7 @@
     <script type="text/javascript" src="{{ asset('/assets/fancyBox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5') }}"></script>
     <script type="text/javascript" src="{{ asset('/assets/fancyBox/source/helpers/jquery.fancybox-media.js?v=1.0.6') }}"></script>
     <script type="text/javascript" src="{{ asset('/assets/fancyBox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7') }}"></script>
+    <script src="{{ asset('/assets/jQueryUI/jquery-ui.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/js/productGallery.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/js/productAddDelete.js') }}"></script>
 @endsection

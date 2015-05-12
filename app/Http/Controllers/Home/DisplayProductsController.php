@@ -39,18 +39,27 @@ class DisplayProductsController extends Controller {
         ]);
     }
 
-    public function postShowProduct()
+//    public function postShowProduct()
+//    {
+//        $id = Request::input('prod_id');
+//        return response()->json([
+//            'redirectTo' => '/product/show/' . $id
+//        ]);
+//    }
+
+    public function postShow($id)
     {
-        $id = Request::input('prod_id');
         return response()->json([
-            'redirectTo' => '/product/show/' . $id
+            'redirectTo' => '/products/show-product/' . $id
         ]);
     }
 
-    public function show($id)
+    public function getShowProduct($id)
     {
         $product = Product::find($id);
-        return view('home.show', compact('product'));
+        $mainPhoto = Photo::find($product->photo_id);
+        $photos = Photo::where('product_id', '=', $id)->get();
+        return view('home.show', compact('product', 'photos', 'mainPhoto'));
     }
 
 }
