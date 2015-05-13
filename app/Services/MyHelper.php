@@ -1,5 +1,6 @@
 <?php namespace App\Services;
 
+use DB;
 class MyHelper {
 
     /**
@@ -126,5 +127,17 @@ class MyHelper {
         return $html;
     }
 
+    public function displayPrice($products)
+    {
+        $sum = 0;
+        $productsObjects = DB::table('products')->whereIn('id', $products)->get();
+        $quantity = array_count_values($products);
+
+        foreach($productsObjects as $productIterator){
+            $sum += $productIterator->price * ($quantity[$productIterator->id]);
+        }
+
+        return $sum;
+    }
 
 }

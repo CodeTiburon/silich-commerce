@@ -54,4 +54,10 @@ ul > li {
     position: absolute;
     right:10px;
 }
+.clearCart {
+    margin-left: 10px;
+}
+#sumAndConfirm {
+    float: left;
+}
 

@@ -68,6 +68,7 @@
                                     <button class="btn btn-default btn-sm buttonPicture" type="button" id="buttonPhoto-{{ $mainPhoto->id}}" data-id="{{ $mainPhoto->id }}" style="display: none">Make main</button>
                                     <img id="mainPhoto" class= "mainPhoto" src="{{ $mainPhoto->title }}" alt="" width="100" height="80" data-product-id="{{ $product->id }}" />
                                 </a>
+                                <div class="sortable">
                                   @foreach($photos as $photo)
                                       <?php if($photo->title == $mainPhoto->title) {
                                           continue;
@@ -77,6 +78,7 @@
                                         <img src="{{ $photo->title }}" alt="" width="100" height="80" />
                                     </a>
                                   @endforeach
+                                </div>
 
 
                                <!--  <label class="col-md-4 control-label">Upload photo for a product</label>

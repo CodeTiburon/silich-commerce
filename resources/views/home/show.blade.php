@@ -8,10 +8,11 @@
 
 @section('content')
     <a type="button" class="btn btn-default" href="/">Back to product selection</a>
-    <div class="col-sm-8">
+    <button class="btn btn-success btn-sm addToCart"><span class="glyphicon glyphicon-shopping-cart"> Add to a cart</span></button>
+    <div class="col-sm-7">
         @if($mainPhoto == null)
             <div class="form-group">
-                <img id="noImage" src="{{ asset('assets/uploads/no-thumb.png') }}" width="300px" height="250px"/>
+                <img id="mainPhoto" src="{{ asset('assets/uploads/no-thumb.png') }}" width="300px" height="250px" data-product-id="{{ $product->id }}"/>
             </div>
         @else
         <a class="fancybox" data-fancybox-group="gallery" href="{{ $mainPhoto->title }}" width ="300px" height="200px">
@@ -37,6 +38,9 @@
         <p class="priceColumn"> {{ $product->price }} $</p>
     </div>
 
+    @include('partials.cartIcon')
+
+    <input id = "token" type="hidden" name="_token" value="{{ \MyHelperFacade::tokenEncrypt() }}">
 @endsection
 
 @section('sources')
