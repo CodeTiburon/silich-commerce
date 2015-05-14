@@ -10,7 +10,6 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::get('/flash','Home\CartController@flash' );
 Route::get('home', 'HomeController@index');
 
 Route::resource('user', 'UserController');
@@ -31,7 +30,8 @@ Route::controllers([
     'admin/categories' => 'Admin\CategoryController',
     'admin/products' => 'Admin\ProductController',
     'products' => 'Home\DisplayProductsController',
-    'cart' => 'Home\CartController'
+    'cart' => 'Home\CartController',
+    'order' => 'Home\OrderController'
 ]);
 Route::get('/', 'Home\DisplayProductsController@index');
 Route::post('products/show', 'Home\DisplayProductsController@postShow');

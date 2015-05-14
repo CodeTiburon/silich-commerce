@@ -72,6 +72,27 @@
       <column name="migration" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="batch" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
     </table>
+    <table name="order__products" schema="" catalog="test" type="TABLE">
+      <column name="order_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="product_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <foreign-key name="order__products_product_id_foreign" columns="product_id" ref-table="products" ref-schema="" ref-catalog="test" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <foreign-key name="order__products_order_id_foreign" columns="order_id" ref-table="orders" ref-schema="" ref-catalog="test" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <index name="order__products_order_id_foreign" unique="false" columns="order_id"/>
+      <index name="order__products_product_id_foreign" unique="false" columns="product_id"/>
+    </table>
+    <table name="orders" schema="" catalog="test" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="address" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="telephone" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="status" sqlType="ENUM" precision="11" scale="0" nullable="false" jdbcType="1" def="J2luX3Byb2Nlc3Mn"/>
+      <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="order__products_order_id_foreign" table="order__products" schema="" catalog="test" columns="order_id"/>
+    </table>
     <table name="photos" schema="" catalog="test" type="TABLE">
       <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="product_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
@@ -92,6 +113,7 @@
       <column name="price" sqlType="DOUBLE" precision="8" scale="2" nullable="false" jdbcType="8"/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="categories_products_product_id_foreign" table="categories_products" schema="" catalog="test" columns="product_id"/>
+      <exported-key name="order__products_product_id_foreign" table="order__products" schema="" catalog="test" columns="product_id"/>
       <exported-key name="photos_product_id_foreign" table="photos" schema="" catalog="test" columns="product_id"/>
     </table>
     <table name="roles" schema="" catalog="test" type="TABLE">

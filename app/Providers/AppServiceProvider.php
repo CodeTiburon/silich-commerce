@@ -33,6 +33,9 @@ class AppServiceProvider extends ServiceProvider {
         $this->app->bind('ProductFile', function() {
             return new ProductFile();
         });
+        $this->app->bind('OrderProcessor',
+            'App\Services\OrderProcessor'
+        );
 	}
 
 }
