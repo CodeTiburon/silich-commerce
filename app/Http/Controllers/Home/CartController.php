@@ -11,7 +11,11 @@ use App\Photo;
 
 class CartController extends Controller {
 
-	public function postAdd()
+    /**
+     * Add a product to the cart
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function postAdd()
     {
 
         $productObj = Product::find(Request::input('product_id'));
@@ -45,6 +49,10 @@ class CartController extends Controller {
 
     }
 
+    /**
+     * Clear cart
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function getClear()
     {
         Session::flush(1,1);
@@ -54,6 +62,10 @@ class CartController extends Controller {
         ]);
     }
 
+    /**
+     * Display cart
+     * @return \Illuminate\View\View
+     */
     public function getDisplay()
     {
         $productsArray = Session::get('products');
@@ -78,6 +90,10 @@ class CartController extends Controller {
         return view('cart.index', compact('products', 'sum'));
     }
 
+    /**
+     * Delete product from the cart
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function postDelete()
     {
         $deleteId = Request::input('delete_id');
@@ -104,6 +120,9 @@ class CartController extends Controller {
         ]);
     }
 
+    /**
+     * Change quantity of the product
+     */
     public function postChange()
     {
         $products = Session::get('products');
@@ -115,6 +134,13 @@ class CartController extends Controller {
 
         $numberProduct = $numbers[$product];
 
+        return $this->changeQuantity($products, $product, $targetNumberProducts, $numberProduct);
+
+
+    }
+
+    private function changeQuantity(array $products, $product, $targetNumberProducts, $numberProduct)
+    {
         if ($targetNumberProducts == 0) {
 
             $needle = array_search($product, $products);
@@ -127,6 +153,7 @@ class CartController extends Controller {
                 }
             }
 
+            Session::put('products', $products);
             return response()->json([
                 'slice' => true
             ]);
@@ -154,7 +181,7 @@ class CartController extends Controller {
         }
 
 
-            Session::put('products', $products);
+        Session::put('products', $products);
     }
 
 

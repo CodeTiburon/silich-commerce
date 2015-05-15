@@ -30,7 +30,7 @@
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->description }}</td>
                             <td class="productPrice">{{ $product->price }}</td>
-                            <td><input type="number" value="{{ $product->quantity }}" class="form-control numberProduct" ></td>
+                            <td><input type="number" data-old="" value="{{ $product->quantity }}" class="form-control numberProduct" ></td>
                             <td><button type="button" class="btn btn-danger btn-sm deleteFromCart">Delete product from cart</button>
                             <input type="hidden" data-id="{{ $product->id }}"></td>
 

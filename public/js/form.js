@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+    //Register form validation
     $('#credForm').ajaxForm({
         success:function(data) {
             if(data.fail) {
@@ -29,6 +30,20 @@ $(document).ready(function() {
             }
 
         }
-    })
+    });
 
+    //order form validation
+    $('#orderForm').ajaxForm({
+        success:function (data) {
+            if(data.fail) {
+                $('#errors').empty();
+                $.each(data.errors, function(index, value) {
+                    $('#errors').append(value).show('slow');
+                })
+            }
+            if(data.redirectTo) {
+                window.location.replace(data.redirectTo);
+            }
+        }
+    })
 });

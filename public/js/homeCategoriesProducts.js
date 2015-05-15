@@ -4,34 +4,68 @@ $(document).ready(function() {
     var $_token = $('#token').val();
 
     //Display all products, associated with category
-    $('.category').on('click', function(e) {
-        e.stopPropagation();
-        $(this).children("ul").toggle('slow');
-        var attr = $(this).attr('data-id');
+        $('.category').on('click', function (e) {
+            e.stopPropagation();
+            $(this).children("ul").toggle('slow');
+            var attr = $(this).attr('data-id');
 
-        if (typeof attr !== typeof undefined && attr !== false ) {
-            var data_id = $(this).data('id');
-            $.ajax({
-                url: '/products/display-products',
-                type: 'POST',
-                headers: { 'X-XSRF-TOKEN' : $_token },
-                data: {
-                    category_id: data_id
-                },
-                success: function(data) {
-                    $('.products').empty();
-                    var products = data.products;
-                    for (product in products) {
-                        var productHtml = _.template($('#productTemplate').html());
+            if (typeof attr !== typeof undefined && attr !== false) {
+                data_id = $(this).data('id');
+                $.ajax({
+                    url: '/products/display-products',
+                    type: 'POST',
+                    headers: {'X-XSRF-TOKEN': $_token},
+                    data: {
+                        category_id: data_id
+                    },
+                    success: function (data) {
+                        $('.products').empty();
+                        var products = data.products;
+                        for (product in products) {
+                            var productHtml = _.template($('#productTemplate').html());
 
-                        var productsDisplay = productHtml(products[product]);
+                            var productsDisplay = productHtml(products[product]);
 
-                        $('.products').append(productsDisplay).hide().fadeIn('slow');
+                            $('.products').append(productsDisplay).hide().fadeIn('fast');
+                        }
+                        $('.page').empty();
+                        var pagination = data.pagination;
+                        $('.page').append(pagination).hide().fadeIn('slow');
+
                     }
-                }
 
-            })
-        }
+                });
+            }
+        });
+
+
+    //Paginates products page and displays particular products
+    $(document).on('click', '.pagination > li', function(e) {
+        e.preventDefault();
+        var data = $(this).find('a').attr('href').split('page=')[1];
+        $.ajax({
+            url: '/products/display-products' + '?page=' + data,
+            type: 'POST',
+            headers: { 'X-XSRF-TOKEN' : $_token },
+            data: {
+                category_id: data_id
+            },
+            success: function (data) {
+                $('.products').empty();
+                var products = data.products;
+                for (product in products) {
+                    var productHtml = _.template($('#productTemplate').html());
+
+                    var productsDisplay = productHtml(products[product]);
+
+                    $('.products').append(productsDisplay).hide().fadeIn('fast');
+                }
+                $('.page').empty();
+                var pagination = data.pagination;
+                $('.page').append(pagination).hide().fadeIn('slow');
+
+            }
+        })
     });
 
     //add class for a current product
@@ -63,6 +97,7 @@ $(document).ready(function() {
         })
     });
 
+    //clear all cart
     $('.clearCart').on('click', function() {
         $.ajax({
             url: '/cart/clear',

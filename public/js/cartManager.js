@@ -34,9 +34,20 @@ $(document).ready(function() {
        })
    });
 
+    $('.numberProduct').on('click', function() {
+        $(this).data('old', $(this).val());
+    });
+
+
+
+
     //update number of products
     $('.numberProduct').on('change', function() {
+        var that = $(this);
+        var oldNumber = $(this).data('old');
+
         var number = $(this).val();
+
         var productId = $(this).parent().next().find('input').data('id');
         var target = $(this).parents('.currentProduct');
 
@@ -59,7 +70,8 @@ $(document).ready(function() {
                 target.hide('slow');
               }
                 var sum = $('.priceColumn').text();
-                $('.priceColumn').text(parseFloat(sum) + parseFloat(prodPrice));
+                $('.priceColumn').text((parseFloat(sum) - (oldNumber * parseFloat(prodPrice))) + (parseFloat(prodPrice) * number));
+                $(that).data('old', number);
             }
         })
     });

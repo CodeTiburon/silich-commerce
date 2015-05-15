@@ -35,7 +35,7 @@ class RedirectIfNotAuthenticated {
     {
         if (!($this->auth->check()))
         {
-            return new RedirectResponse(url('/order/create'));
+            return new RedirectResponse(url('/authorize/login'));
         }
 
         return $next($request);

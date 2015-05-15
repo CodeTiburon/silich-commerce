@@ -10,16 +10,28 @@
 
     <div class="row-fluid">
         <div class="col-sm-3">
+        <div class="panel panel-warning">
+            <div class="panel panel-heading">
+            Categories
+            </div>
+            <div class="panel panel-body">
             <ul class="list-group">
                 @foreach($categories as $category)
                     <?php echo \MyHelperFacade::categoriesRender($category); ?>
                 @endforeach
             </ul>
+            </div>
+            </div>
         </div>
         <div class="col-sm-7 products">
 
+
+        </div>
+
+        <div class="page">
         </div>
     </div>
+
 
 
     <input id = "token" type="hidden" name="_token" value="{{ \MyHelperFacade::tokenEncrypt() }}">

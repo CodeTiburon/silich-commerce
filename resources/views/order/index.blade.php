@@ -12,8 +12,9 @@
         </div>
 
         <div class="panel panel-body">
+            <div id="errors" class="alert alert-danger" style="display: none"></div>
 
-            <form class="form-horizontal" role="form" method="POST" action="{{ url('/order/create') }}">
+            <form class="form-horizontal" id="orderForm" role="form" method="POST" action="{{ url('/order/create') }}">
             						<input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <!-- <div class="form-group">
 
@@ -56,3 +57,10 @@
     </div>
 
 @endsection
+
+@section('sources')
+
+    <script src="{{ asset('/js/form.js') }}"></script>
+
+@endsection
+
